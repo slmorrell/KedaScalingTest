@@ -1,8 +1,8 @@
 {
   "profiles": {
-    "KedaScalingTest": {
+    "KedaDemo": {
       "commandName": "Project",
-      "commandLineArgs": "--port 7298",
+      "commandLineArgs": "--port 7104",
       "launchBrowser": false
     }
   }

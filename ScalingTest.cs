@@ -1,23 +1,20 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using Microsoft.Azure.Functions.Worker;
-using Microsoft.Extensions.Logging;
+using Microsoft.Azure.Functions.Worker.Http;
 
-namespace KedaScalingTest;
+namespace KedaDemo;
 
-public class ScalingTest
+public class ScalingTestFunction
 {
-    private readonly ILogger<ScalingTest> _logger;
-
-    public ScalingTest(ILogger<ScalingTest> logger)
-    {
-        _logger = logger;
-    }
-
     [Function("ScalingTest")]
-    public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post")] HttpRequest req)
+    public HttpResponseData Run(
+        [HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req)
     {
-        _logger.LogInformation("C# HTTP trigger function processed a request.");
-        return new OkObjectResult("Welcome to Azure Functions!");
+        var response = req.CreateResponse(HttpStatusCode.OK);
+        response.Headers.Add("Content-Type", "text/plain; charset=utf-8");
+
+        response.WriteString("AutoScalerTest alive");
+
+        return response;
     }
 }
